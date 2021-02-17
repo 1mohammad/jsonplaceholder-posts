@@ -1,0 +1,28 @@
+{
+    "name": "zoomit",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "test:unit": "vue-cli-service test:unit",
+        "test": "jest"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "node-sass": "^5.0.0",
+        "sass-loader": "^10.1.1",
+        "vue": "^2.6.11",
+        "vue-class-component": "^7.2.3",
+        "vue-property-decorator": "^9.1.2"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.0.19",
+        "@vue/cli-plugin-typescript": "~4.5.0",
+        "@vue/cli-plugin-unit-jest": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "@vue/test-utils": "^1.0.3",
+        "typescript": "~3.9.3",
+        "vue-template-compiler": "^2.6.11"
+    }
+}
