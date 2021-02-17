@@ -1,4 +1,4 @@
-# zoomit
+# Get 100 post from jsonplaceholder | 10 rows x 10 columns
 
 ## Project setup
 ```
