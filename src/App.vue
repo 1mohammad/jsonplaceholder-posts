@@ -34,6 +34,7 @@ export default class App extends Vue {
   post: BlogPost[] = [];
   created() {
     this.loading = true;
+	// http get request - posts from jsonplaceholder
     httpGet("posts").then((res) => {
       this.loading = false;
       res.map((item: BlogPost) => {
@@ -48,6 +49,7 @@ export default class App extends Vue {
     });
   }
 }
+// blog posts interface
 interface BlogPost {
   userId: number;
   id: number;
