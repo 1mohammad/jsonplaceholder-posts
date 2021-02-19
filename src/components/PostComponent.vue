@@ -1,5 +1,9 @@
 <template>
-  <div class="post-item" @click="changeId(postData)">
+  <div
+    class="post-item"
+    v-bind:class="postData.showId ? 'user-id' : 'post-id'"
+    @click="changeId(postData)"
+  >
     <span class="badge">
       {{ postData.showId ? "User id" : "Post id" }}
     </span>
@@ -22,8 +26,10 @@ export default class PostComponent extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+// color variables
+$redColor: rgb(225, 8, 44);
+$greenColor: rgb(8, 225, 80);
 .post-item {
   span {
     &::selection {
@@ -42,24 +48,43 @@ export default class PostComponent extends Vue {
   width: 100%;
   box-sizing: border-box;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.14);
-  border: 1px solid #f4f4f4;
   border-radius: 0;
   transition: all 0.3s ease;
   cursor: pointer;
+  &.user-id {
+    border: 1px solid lighten($redColor, 40%);
+    &:hover {
+      .badge {
+        background-color: lighten($redColor, 40%);
+      }
+    }
+    .badge {
+      background-color: transparent;
+    }
+  }
+  &.post-id {
+    border: 1px solid #f4f4f4;
+    &:hover {
+      .badge {
+        background-color: lighten($greenColor, 40%);
+      }
+    }
+    .badge {
+      background-color: transparent;
+    }
+  }
   .badge {
-    opacity: .2;
+    opacity: 0.2;
     transition: 0.3s all ease;
-    background-color: rgba(225, 8, 44, 0);
     border-radius: 5px;
     padding: 2px 5px;
     transform: translateY(-3px);
   }
   &:hover {
-	  border-radius: 8px;
+    border-radius: 8px;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.14);
     .badge {
       opacity: 1;
-	  background-color: rgba(225, 8, 44, 0.31);
     }
   }
   .id {

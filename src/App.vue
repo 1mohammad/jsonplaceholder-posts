@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <div class="navBar">
-      <div class="container">
-        <h1>Get 100 post from jsonplaceholder | 10 rows x 10 columns</h1>
-        <small> click to toggle Post id - User id </small>
-      </div>
-    </div>
+    <HeaderComponent
+      siteTitle="Get 100 post from jsonplaceholder | 10 rows x 10 columns"
+      shortDescription="click to toggle Post id - User id"
+    />
     <div class="container">
       <LoadingComponent v-if="loading" />
       <div v-if="!loading" class="items">
@@ -21,12 +19,14 @@
 import { Component, Vue } from "vue-property-decorator";
 import PostComponent from "./components/PostComponent.vue";
 import LoadingComponent from "./components/LoadingComponent.vue";
+import HeaderComponent from "./components/HeaderComponent.vue";
 import { httpGet } from "./services/global";
 
 @Component({
   components: {
     PostComponent,
     LoadingComponent,
+    HeaderComponent,
   },
 })
 export default class App extends Vue {
@@ -34,7 +34,7 @@ export default class App extends Vue {
   post: BlogPost[] = [];
   created() {
     this.loading = true;
-	// http get request - posts from jsonplaceholder
+    // http get request - posts from jsonplaceholder
     httpGet("posts").then((res) => {
       this.loading = false;
       res.map((item: BlogPost) => {
@@ -69,22 +69,17 @@ interface BlogPost {
     @media (max-width: 768px) {
       @content;
     }
+  } @else if $point==sm-down {
+    @media (max-width: 576px) {
+      @content;
+    }
   }
 }
 body {
   padding: 0;
   margin: 0;
 }
-#app {
-  .navBar {
-    background-color: #000;
-    padding: 15px;
-    color: #fff;
-    h1 {
-      margin-top: 0;
-    }
-  }
-}
+
 .container {
   max-width: 920px;
   margin: 0 auto;
@@ -92,16 +87,29 @@ body {
     width: 100%;
   }
 }
-.items {
-  display: flex;
-  width: 100%;
-  height: calc(100vh - 30px);
-  flex-wrap: wrap;
-  padding: 20px 0;
-  .item-col {
-    flex: 0 0 10%;
-    max-width: 10%;
-    box-sizing: border-box;
+#app {
+  .items {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 30px);
+    flex-wrap: wrap;
+    padding: 20px 0;
+    .item-col {
+      @include breakpoint(md-down) {
+        flex: 0 0 14.28%;
+        max-width: 14.28%;
+      }
+      @include breakpoint(md-up) {
+        flex: 0 0 10%;
+        max-width: 10%;
+      }
+      @include breakpoint(sm-down) {
+        flex: 0 0 20%;
+        max-width: 20%;
+      }
+
+      box-sizing: border-box;
+    }
   }
 }
 * {
