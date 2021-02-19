@@ -7,13 +7,12 @@ const http = axios.create({
 
 export function httpGet(req: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        http.get(`/${req}`).then(
-            (res) => {
+        http.get(`/${req}`)
+            .then((res) => {
                 resolve(res.data);
-            },
-            (err) => {
+            })
+            .catch((err) => {
                 reject(err);
-            }
-        );
+            });
     });
 }

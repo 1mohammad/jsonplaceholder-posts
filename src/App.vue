@@ -6,10 +6,13 @@
     />
     <div class="container">
       <LoadingComponent v-if="loading" />
-      <div v-if="!loading" class="items">
+      <div v-if="!loading && post.length != 0" class="items">
         <div v-for="item in post" :key="item.id" class="item-col">
           <PostComponent :postData="item" />
         </div>
+      </div>
+      <div class="notFound" v-if="!loading && post.length == 0">
+        <p>No results found</p>
       </div>
     </div>
   </div>
@@ -34,19 +37,20 @@ export default class App extends Vue {
   post: BlogPost[] = [];
   created() {
     this.loading = true;
-    // http get request - posts from jsonplaceholder
-    httpGet("posts").then((res) => {
-      this.loading = false;
-      res.map((item: BlogPost) => {
-        const postItem = {} as BlogPost;
-        postItem.userId = item.userId;
-        postItem.id = item.id;
-        postItem.title = item.title;
-        postItem.body = item.body;
-        postItem.showId = false;
-        this.post.push(postItem);
-      });
-    });
+    // fetch posts from jsonplaceholder
+    httpGet("posts").then(
+      (res) => {
+        this.loading = false;
+        res.map((item: BlogPost) => {
+          item.showId = false;
+          this.post.push(item);
+        });
+      },
+      (err) => {
+        this.loading = false;
+        console.log(err);
+      }
+    );
   }
 }
 // blog posts interface
@@ -88,6 +92,13 @@ body {
   }
 }
 #app {
+  .notFound {
+    width: 100%;
+    height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .items {
     display: flex;
     width: 100%;
